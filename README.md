@@ -8,5 +8,5 @@ Secondly, you need to download source code from origin/develop.
 Use the following commands depending on your operating system:
  - Windows - gradlew.bat build bootRun
  - Linux - sh gradlew build bootRun
- - 
+
 Or via using IDE instruments.
