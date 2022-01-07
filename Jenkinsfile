@@ -12,12 +12,6 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'openjdk:11'
-                    reuseNode true
-                }
-            }
             steps {
                 sh './gradlew clean build'
             }
