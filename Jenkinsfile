@@ -39,7 +39,6 @@ pipeline {
 //                }
 //            }
             steps {
-                sh 'echo ${env.BRANCH_NAME}'
                 sh "echo ${env.BRANCH_NAME}"
 //                sh './gradlew assemble docker dockerRun'
             }
