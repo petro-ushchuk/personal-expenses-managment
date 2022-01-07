@@ -20,7 +20,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation "io.springfox:springfox-boot-starter:3.0.0"
-    runtime 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.google.guava:guava:11.0.2"
 
@@ -36,10 +36,10 @@ test {
 }
 
 task version {
-    return getVersion().toString()
+    return version
 }
 
 task group {
-    return getGroup()
+    return group
 }
 
