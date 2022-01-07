@@ -1,12 +1,6 @@
 pipeline {
 
-    agent {
-        docker {
-            image 'openjdk:11'
-            args '-v /tmp:/tmp'
-            reuseNode true
-        }
-    }
+    agent any
 
     options {
         timestamps()
@@ -18,6 +12,12 @@ pipeline {
 
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'openjdk:11'
+                    reuseNode true
+                }
+            }
             steps {
                 sh './gradlew clean build'
             }
@@ -27,7 +27,6 @@ pipeline {
             agent {
                 docker {
                     image 'openjdk:11'
-                    args '-v "$PWD":/app'
                     reuseNode true
                 }
             }
