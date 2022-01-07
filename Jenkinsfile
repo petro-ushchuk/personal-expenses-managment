@@ -1,6 +1,12 @@
 pipeline {
 
-    agent none
+    agent {
+        docker {
+            image 'openjdk:11'
+            args '-v /tmp:/tmp'
+            reuseNode true
+        }
+    }
 
     options {
         timestamps()
@@ -18,13 +24,6 @@ pipeline {
         }
 
         stage('Test and Build') {
-            agent {
-                docker {
-                    image 'openjdk:11'
-                    args '-v "$PWD":/app'
-                    reuseNode true
-                }
-            }
             steps {
                 sh './gradlew clean build'
                 junit '**/target/*.xml'
