@@ -37,6 +37,7 @@ pipeline {
                   docker tag ${env.JOB_NAME} ${env.JOB_NAME}:${VERSION}
                   docker push ${env.JOB_NAME}:${VERSION}
                 """
+                sh "echo Image name - ${env.JOB_NAME}:${VERSION}"
             }
         }
 //
