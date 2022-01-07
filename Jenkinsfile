@@ -6,10 +6,6 @@ pipeline {
         timestamps()
     }
 
-    environment {
-        VERSION = sh script: "./gradlew version", returnStdout: true
-    }
-
     stages {
         stage('Build') {
             steps {
