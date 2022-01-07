@@ -36,16 +36,16 @@ pipeline {
             }
         }
 
-//        stage('Build and Publish Image') {
-//            steps {
-//                sh """
-//                  docker build -t ${env.JOB_NAME} .
-//                  docker tag ${env.JOB_NAME} ${env.JOB_NAME}:${VERSION}
-//                  docker push ${env.JOB_NAME}:${VERSION}
-//                """
-//                sh "echo Image name - ${env.JOB_NAME}:${VERSION}"
-//            }
-//        }
+        stage('Build and Publish Image') {
+            steps {
+                sh """
+                  docker build -t ${env.JOB_NAME} .
+                  docker tag ${env.JOB_NAME} ${env.JOB_NAME}:${VERSION}
+                  docker push ${env.JOB_NAME}:${VERSION}
+                """
+                sh "echo Image name - ${env.JOB_NAME}:${VERSION}"
+            }
+        }
 //
 //        stage('Deploy to develop') {
 //            when {
