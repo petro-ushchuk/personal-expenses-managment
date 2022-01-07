@@ -33,13 +33,15 @@ pipeline {
 //        }
 
         stage('Deploy to develop') {
-            when {
-                expression {
-                    return BRANCH_NAME == 'develop'
-                }
-            }
+//            when {
+//                expression {
+//                    return env.BRANCH_NAME == 'develop'
+//                }
+//            }
             steps {
-                sh './gradlew assemble docker dockerRun'
+                sh 'echo ${env.BRANCH_NAME}'
+                sh "echo ${env.BRANCH_NAME}"
+//                sh './gradlew assemble docker dockerRun'
             }
         }
     }
