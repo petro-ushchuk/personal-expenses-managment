@@ -8,10 +8,6 @@ pipeline {
         }
     }
 
-    triggers {
-        bitbucketPush()
-    }
-
     options {
         timestamps()
     }
@@ -51,7 +47,10 @@ pipeline {
             }
         }
 
-        stage ('Deploy') {
+        stage ('Deploy to develop') {
+            when {
+                branch 'develop'
+            }
             steps {
                 sh 'docker run -d -p 80:8080 ${IMAGE}'
             }
@@ -60,7 +59,6 @@ pipeline {
 
     post {
         failure {
-            // notify users when the Pipeline fails
             mail to: 'petro.ushchuk@team-inspirit.com',
                     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Something is wrong with ${env.BUILD_URL}"
