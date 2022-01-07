@@ -53,7 +53,7 @@ pipeline {
 
         stage ('Deploy') {
             steps {
-                sh 'docker run -d -p 8080:8080 ${IMAGE}'
+                sh 'docker run -d -p 80:8080 ${IMAGE}'
             }
         }
     }
