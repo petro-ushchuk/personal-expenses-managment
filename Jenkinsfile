@@ -13,8 +13,8 @@ pipeline {
     }
 
     environment {
-        IMAGE = readMavenPom().getArtifactId()
-        VERSION = readMavenPom().getVersion()
+        IMAGE = sh script: "gradle getGroup()", returnStdout: true
+        VERSION = sh script: "gradle getVersion()", returnStdout: true
     }
 
     stages {
@@ -47,7 +47,7 @@ pipeline {
             }
         }
 
-        stage ('Deploy to develop') {
+        stage('Deploy to develop') {
             when {
                 branch 'develop'
             }
