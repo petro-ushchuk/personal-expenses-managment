@@ -5,7 +5,7 @@ spring:
     password: "root"
   jpa:
     database-platform: "org.hibernate.dialect.H2Dialect"
-    open-in-view: true
+    open-in-view: false
 exchange:
   rates:
       url: "https://api.exchangerate.host/latest?base="
