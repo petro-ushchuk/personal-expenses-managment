@@ -13,7 +13,7 @@ pipeline {
     }
 
     environment {
-        IMAGE = sh script: "./gradlew group", returnStdout: true
+        IMAGE = env.JOB_NAME
         VERSION = sh script: "./gradlew version", returnStdout: true
     }
 
@@ -34,6 +34,7 @@ pipeline {
             }
             steps {
                 sh './gradlew clean build'
+                junit '**/target/*.xml'
             }
         }
 

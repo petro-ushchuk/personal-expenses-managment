@@ -39,7 +39,3 @@ task version {
     return version
 }
 
-task group {
-    return group
-}
-
