@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy to develop') {
             when {
                 expression {
-                    return BRANCH == 'develop';
+                    return BRANCH == 'develop'
                 }
             }
             steps {
