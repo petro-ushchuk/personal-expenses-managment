@@ -13,8 +13,8 @@ pipeline {
     }
 
     environment {
-        IMAGE = sh script: "gradle getGroup()", returnStdout: true
-        VERSION = sh script: "gradle getVersion()", returnStdout: true
+        IMAGE = sh script: "/gradlew getGroup()", returnStdout: true
+        VERSION = sh script: "/gradlew getVersion()", returnStdout: true
     }
 
     stages {
