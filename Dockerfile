@@ -1,5 +1,5 @@
 FROM openjdk:11
+ARG JAR_FILE
 EXPOSE 8080
-RUN mkdir /app
-COPY build/libs/*.jar /app/personal-expenses-managment.jar
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/personal-expenses-managment.jar"]
+COPY ${JAR_FILE} personal-expenses-managment.jar
+ENTRYPOINT ["java", "-jar","/personal-expenses-managment.jar"]

@@ -32,23 +32,18 @@ pipeline {
 
         stage('Build and Publish Image') {
             steps {
-                sh """
-                  docker build -t ${env.JOB_NAME} .
-                  docker tag ${env.JOB_NAME} ${env.JOB_NAME}:${VERSION}
-                  docker push ${env.JOB_NAME}:${VERSION}
-                """
-                sh "echo Image name - ${env.JOB_NAME}:${VERSION}"
+                sh './gradlew assemble docker'
             }
         }
-//
-//        stage('Deploy to develop') {
-//            when {
-//                branch 'develop'
-//            }
-//            steps {
-//                sh 'docker run -d -p 80:8080 ${env.JOB_NAME}'
-//            }
-//        }
+
+        stage('Deploy to develop') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh './gradlew assemble docker dockerRun'
+            }
+        }
     }
 
 //    post {
