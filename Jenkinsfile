@@ -34,7 +34,9 @@ pipeline {
 
         stage('Deploy to develop') {
             when {
-                branch 'develop'
+                expression {
+                    return BRANCH == 'develop';
+                }
             }
             steps {
                 sh './gradlew assemble docker dockerRun'
