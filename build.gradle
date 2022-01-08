@@ -37,17 +37,15 @@ test {
     useJUnitPlatform()
 }
 
-String imageName = "personal-expenses-managment:$version"
-
 docker {
-    name imageName
+    name "${project.name}:${project.version}"
     files "build/libs/${bootJar.archiveFileName.get()}"
     buildArgs(["JAR_FILE": bootJar.archiveFileName.get()])
 }
 
 dockerRun {
-    name project.name
-    image imageName
+    name "${project.name}"
+    image "${project.name}:${project.version}"
     ports "80:8080"
     clean true
 }

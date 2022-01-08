@@ -32,13 +32,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to develop') {
+        stage('Deploy') {
             when {
-                expression {
-                    return env.BRANCH_NAME == 'develop'
-                }
+                branch 'develop'
             }
             steps {
+                sh 'docker build --force-rm'
                 sh './gradlew assemble docker dockerRun'
             }
         }
