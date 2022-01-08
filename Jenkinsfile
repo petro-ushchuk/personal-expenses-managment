@@ -31,7 +31,8 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                sh './gradlew assemble dockerStop docker dockerRun'
+                sh './gradlew assemble docker dockerRun'
+//                sh './gradlew assemble dockerStop docker dockerRun'
             }
         }
     }
