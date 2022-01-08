@@ -13,16 +13,10 @@ pipeline {
             }
         }
 
-        stage('Test and Build') {
+        stage('Test') {
             steps {
                 sh './gradlew clean test'
                 junit '**/build/test-results/test/*.xml'
-            }
-        }
-
-        stage('Build and Publish Image') {
-            steps {
-                sh './gradlew assemble docker'
             }
         }
 
@@ -31,8 +25,7 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                sh './gradlew assemble docker dockerRun'
-//                sh './gradlew assemble dockerStop docker dockerRun'
+                sh './gradlew assemble dockerStop docker dockerRun'
             }
         }
     }
