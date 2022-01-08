@@ -30,11 +30,17 @@ pipeline {
         }
     }
 
-//    post {
-//        failure {
-//            mail to: 'petr.ushchuk@gmail.com',
-//                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-//                    body: "Something is wrong with ${env.BUILD_URL}"
-//        }
-//    }
+    post {
+        failure {
+            mail to: 'petr.ushchuk@gmail.com',
+                    subject: "Failed Pipseline: ${currentBuild.fullDisplayName}",
+                    body: "Something is wrong with ${env.BUILD_URL}"
+        }
+
+        success {
+            mail to: 'petr.ushchuk@gmail.com',
+                    subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
+                    body: "Build success ${env.BUILD_URL}"
+        }
+    }
 }
