@@ -14,12 +14,6 @@ pipeline {
         }
 
         stage('Test and Build') {
-            agent {
-                docker {
-                    image 'openjdk:11'
-                    reuseNode true
-                }
-            }
             steps {
                 sh './gradlew clean test'
                 junit '**/build/test-results/test/*.xml'
@@ -32,14 +26,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to develop') {
+        stage('Deploy') {
             when {
-                expression {
-                    return env.BRANCH_NAME == 'develop'
-                }
+                branch 'develop'
             }
             steps {
-                sh './gradlew assemble docker dockerRun'
+                sh './gradlew assemble dockerStop docker dockerRun'
             }
         }
     }
