@@ -7,9 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,16 +19,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ExpensesController.class)
-@Import(ExpensesController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 @DisplayName("ExpensesController")
 public class ExpensesControllerTest {
 
@@ -49,9 +49,9 @@ public class ExpensesControllerTest {
                 "\t\"product\": \"Camel Blue\"\n" +
                 "}";
         mockMvc.perform(post("/expenses")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(expenseClient))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .content(expenseClient))
                 .andExpect(status().isCreated());
     }
 
@@ -61,9 +61,9 @@ public class ExpensesControllerTest {
         String expenseClient = "{\n" +
                 "}";
         mockMvc.perform(post("/expenses")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .content(expenseClient))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .content(expenseClient))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors").isArray())
                 .andExpect(jsonPath("$.errors", hasSize(3)))
@@ -124,7 +124,7 @@ public class ExpensesControllerTest {
     @DisplayName("delete expenses should return 201 and empty map when db is empty")
     public void deleteExpensesWhenItsEmpty() throws Exception {
         mockMvc.perform(delete("/expenses")
-                .param("date", "2021-04-27"))
+                        .param("date", "2021-04-27"))
                 .andExpect(status().isOk());
     }
 
@@ -141,7 +141,7 @@ public class ExpensesControllerTest {
                 .thenReturn(expenses);
 
         mockMvc.perform(delete("/expenses")
-                .param("date", "2021-04-22"))
+                        .param("date", "2021-04-22"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(salmon.getId()))
                 .andExpect(jsonPath("$[0].date").value(salmon.getDate().toString()))
@@ -165,7 +165,7 @@ public class ExpensesControllerTest {
         Mockito.when(expenseServiceMock.getTotal(""))
                 .thenReturn(new TotalDto());
         mockMvc.perform(get("/total")
-                .param("base", "UAH"))
+                        .param("base", "UAH"))
                 .andExpect(status().isOk());
     }
 }
